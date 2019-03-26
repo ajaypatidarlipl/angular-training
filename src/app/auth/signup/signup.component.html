@@ -6,6 +6,14 @@
     <fieldset [disabled]="isSubmitting">
       <div class="panel-body">
         <div class="form-group">
+          <label class="control-label">Username</label>
+          <input type="text" class="form-control" placeholder="Username" id="username" formControlName="username" [ngClass]="{'is-invalid': signupForm.get('username').errors && (signupForm.get('username').touched || signupForm.get('username').dirty)}">
+          <span class="invalid-feedback" *ngIf="signupForm.get('username').errors && (signupForm.get('username').touched || signupForm.get('username').dirty)">
+              <span *ngIf="signupForm.get('username').errors.required">Username is required.</span>
+              <span *ngIf="signupForm.get('username').errors.pattern">Username must be a valid.</span>
+          </span>
+        </div>
+        <div class="form-group">
           <label class="control-label">Email</label>
           <input type="text" class="form-control" placeholder="Email" id="email" formControlName="email" [ngClass]="{'is-invalid': signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)}">
           <span class="invalid-feedback" *ngIf="signupForm.get('email').errors && (signupForm.get('email').touched || signupForm.get('email').dirty)">
