@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidation } from './../../password-validation';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,10 +10,16 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  is_logged_in = false; 
   signupForm: FormGroup;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router) {
+    this.is_logged_in = localStorage.getItem('is_logged_in');
+    if(this.is_logged_in==1){
+        this.router.navigate(['dashboard'])      
+    }
+  }
 
   ngOnInit() {
     this.signupForm = this.fb.group({
