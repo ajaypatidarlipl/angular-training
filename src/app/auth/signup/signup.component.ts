@@ -34,8 +34,17 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     if(this.signupForm.valid){
-      this.signupResponse = this.authService.register(this.signupForm.value);
-      this.isSubmitting = false;
+        this.signupResponse = this.authService.register(this.signupForm.value).subscribe(
+      data  => {
+        this.isSubmitting = false;
+        alert(data.message);
+        if(data.status==true)
+          this.router.navigate(['dashboard']);
+      },
+      error  => {
+        this.isSubmitting = false;
+        console.log("Rrror", error);
+      });
     }
   }
 

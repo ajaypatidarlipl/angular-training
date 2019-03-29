@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.setItem('is_logged_in', '');
+    this.authService.logout();
     this.router.navigate(['login'])
   }
 }

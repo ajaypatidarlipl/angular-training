@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,61 +15,40 @@ export class AuthService {
     return is_logged_in ? true : false;
   }
 
-  register(signupData){
-    var data = {
-      method: 'registration',
-      data: JSON.stringify([{
-        username: signupData.username,
-        email: signupData.email,
-        password: signupData.password
-      }])
-    };
-    console.log('register', data)
-    console.log('webservice_url', this.webservice_url)
-    return this.http.post<any>(this.webservice_url, data).subscribe(
-
-      data  => {
-
-      console.log("PUT Request is successful ", data);
-
-      },
-
-      error  => {
-
-      console.log("Rrror", error);
-
-      });
+  register(signupData): Observable<any>{
+    var data = new HttpParams();
+    data = data.set('method', 'registration');
+    data = data.set('data', JSON.stringify([{
+      'username': signupData.username,
+      'email': signupData.email,
+      'password': signupData.password
+    }]));
+    return this.http.post<any>(this.webservice_url, data)
+      .pipe(
+        map(response => {
+          return response;
+        })
+      );
   }
 
   login(loginData){
-    if(loginData.email == 'ajay.patidar@lemosys.com' && loginData.password=='123456'){
-      localStorage.setItem('is_logged_in', 1);
-      return true;
-    }
-    return false;
-    var data = {
-      method: 'login',
-      data: JSON.stringify([{
-        email: loginData.email,
-        password: loginData.password
-      }])
-    };
-    console.log('login', data)
-    console.log('webservice_url', this.webservice_url)
-    return this.http.post<any>(this.webservice_url, data).subscribe(
-
-      data  => {
-
-        console.log("PUT Request is successful ", data);
-
-      },
-
-      error  => {
-
-        console.log("Rrror", error);
-
-      });
-    
+    var data = new HttpParams();
+    data = data.set('method', 'login');
+    data = data.set('data', JSON.stringify([{
+      'email': loginData.email,
+      'password': loginData.password
+    }]));
+    return this.http.post<any>(this.webservice_url, data)
+      .pipe(
+        map(response => {
+          localStorage.setItem('is_logged_in', 1);
+          return response;
+        })
+      );
   }
 
+  logout(){
+    localStorage.setItem('is_logged_in', '');
+    return true;
+  }
 }

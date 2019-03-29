@@ -29,14 +29,17 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     if(this.loginForm.valid){
-      this.loginResponse = this.authService.login(this.loginForm.value);
-      if(this.loginResponse==true){
-        this.router.navigate(['dashboard']);
-      }else{
-        this.isSubmitting = false;
-        alert('Invalid login detail.');
-      }
-      
+      this.loginResponse = this.authService.login(this.loginForm.value).subscribe(
+        data  => {
+          this.isSubmitting = false;
+          alert(data.message);
+          if(data.status==true)
+            this.router.navigate(['dashboard']);
+        },
+        error  => {
+          this.isSubmitting = false;
+          console.log("Rrror", error);
+        });     
     }
   }
 
