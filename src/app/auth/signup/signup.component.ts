@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-        username: ['', [Validators.required, Validators.pattern('[A-Za-z0-9]+')]],
+        name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         confirm_password: ['', [Validators.required]]
@@ -34,17 +34,21 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     if(this.signupForm.valid){
-        this.signupResponse = this.authService.register(this.signupForm.value).subscribe(
-      data  => {
-        this.isSubmitting = false;
-        alert(data.message);
-        if(data.status==true)
-          this.router.navigate(['dashboard']);
-      },
-      error  => {
-        this.isSubmitting = false;
-        console.log("Rrror", error);
-      });
+        this.authService.register(this.signupForm.value).subscribe(
+          data  => {
+            this.isSubmitting = false;
+            alert(data.message);
+            if(data.status==true){
+              this.router.navigate(['dashboard']);
+            }else{
+              this.signupForm.get('password').setValue('');
+              this.signupForm.get('confirm_password').setValue('');
+            }
+          },
+          error  => {
+            this.isSubmitting = false;
+            console.log("Rrror", error);
+          });
     }
   }
 

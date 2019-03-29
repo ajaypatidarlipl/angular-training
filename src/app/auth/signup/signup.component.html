@@ -7,11 +7,10 @@
       <fieldset [disabled]="isSubmitting">
         <div class="panel-body">
           <div class="form-group">
-            <label class="control-label">Username</label>
-            <input type="text" class="form-control" placeholder="Username" id="username" formControlName="username" [ngClass]="{'is-invalid': signupForm.get('username').errors && (signupForm.get('username').touched || signupForm.get('username').dirty)}">
-            <span class="invalid-feedback" *ngIf="signupForm.get('username').errors && (signupForm.get('username').touched || signupForm.get('username').dirty)">
-                <span *ngIf="signupForm.get('username').errors.required">Username is required.</span>
-                <span *ngIf="signupForm.get('username').errors.pattern">Username must be a valid.</span>
+            <label class="control-label">Name</label>
+            <input type="text" class="form-control" placeholder="Name" id="name" formControlName="name" [ngClass]="{'is-invalid': signupForm.get('name').errors && (signupForm.get('name').touched || signupForm.get('name').dirty)}">
+            <span class="invalid-feedback" *ngIf="signupForm.get('name').errors && (signupForm.get('name').touched || signupForm.get('name').dirty)">
+                <span *ngIf="signupForm.get('name').errors.required">Username is required.</span>
             </span>
           </div>
           <div class="form-group">

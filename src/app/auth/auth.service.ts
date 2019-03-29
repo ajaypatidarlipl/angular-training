@@ -19,7 +19,7 @@ export class AuthService {
     var data = new HttpParams();
     data = data.set('method', 'registration');
     data = data.set('data', JSON.stringify([{
-      'username': signupData.username,
+      'username': signupData.name,
       'email': signupData.email,
       'password': signupData.password
     }]));
@@ -41,7 +41,9 @@ export class AuthService {
     return this.http.post<any>(this.webservice_url, data)
       .pipe(
         map(response => {
-          localStorage.setItem('is_logged_in', 1);
+          if(response.status==true)
+            localStorage.setItem('is_logged_in', 1);
+            
           return response;
         })
       );
