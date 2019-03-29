@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isSubmitting = false;
+  loginResponse;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {    
     if(this.authService.isAuthenticated()){
@@ -28,14 +29,14 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     if(this.loginForm.valid){
-      this.isSubmitting = false;
-      if(this.loginForm.get('email').value == 'ajay.patidar@lemosys.com' && this.loginForm.get('password').value=='123456'){
-        localStorage.setItem('is_logged_in', 1);
-        alert('Success.');
+      this.loginResponse = this.authService.login(this.loginForm.value);
+      if(this.loginResponse==true){
         this.router.navigate(['dashboard']);
       }else{
+        this.isSubmitting = false;
         alert('Invalid login detail.');
       }
+      
     }
   }
 

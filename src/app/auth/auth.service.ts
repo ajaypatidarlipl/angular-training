@@ -41,4 +41,35 @@ export class AuthService {
       });
   }
 
+  login(loginData){
+    if(loginData.email == 'ajay.patidar@lemosys.com' && loginData.password=='123456'){
+      localStorage.setItem('is_logged_in', 1);
+      return true;
+    }
+    return false;
+    var data = {
+      method: 'login',
+      data: JSON.stringify([{
+        email: loginData.email,
+        password: loginData.password
+      }])
+    };
+    console.log('login', data)
+    console.log('webservice_url', this.webservice_url)
+    return this.http.post<any>(this.webservice_url, data).subscribe(
+
+      data  => {
+
+        console.log("PUT Request is successful ", data);
+
+      },
+
+      error  => {
+
+        console.log("Rrror", error);
+
+      });
+    
+  }
+
 }
