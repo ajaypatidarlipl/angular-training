@@ -10,11 +10,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './guards/auth-guard.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, HttpClientModule ],
-  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent ],
+  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent, PageNotFoundComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [AuthService]
+  providers: [AuthService, AuthGuard]
 })
 export class AppModule { }

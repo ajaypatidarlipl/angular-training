@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  is_logged_in = 0;
   loginForm: FormGroup;
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
-    if(this.is_logged_in==1){
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {    
+    if(this.authService.isAuthenticated()){
         this.router.navigate(['dashboard'])      
     }
   }

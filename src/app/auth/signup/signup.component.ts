@@ -10,14 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  is_logged_in = 0; 
   signupForm: FormGroup;
   isSubmitting = false;
-  signupresponse;
+  signupResponse;
 
-  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router) {
-    this.is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
-    if(this.is_logged_in==1){
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    if(this.authService.isAuthenticated()){
         this.router.navigate(['dashboard'])      
     }
   }
@@ -36,7 +34,7 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.isSubmitting = true;
     if(this.signupForm.valid){
-      this.authService.register(this.signupForm.value);
+      this.signupResponse = this.authService.register(this.signupForm.value);
       this.isSubmitting = false;
     }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  is_logged_in = 0; 
-  constructor(private router: Router) {
-    this.is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
-    if(this.is_logged_in!=1){
+  constructor(private router: Router, private authService: AuthService) {
+    if(!this.authService.isAuthenticated()){
         this.router.navigate(['login'])      
     }
   }
