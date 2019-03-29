@@ -7,16 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  is_logged_in = false; 
+  is_logged_in = 0; 
   constructor(private router: Router) {
-    this.is_logged_in = localStorage.getItem('is_logged_in');
+    this.is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
   }
 
   ngOnInit() {
   }
 
   logout() {
-    localStorage.setItem('is_logged_in', 0);
+    localStorage.setItem('is_logged_in', '');
     this.router.navigate(['login'])
   }
 }

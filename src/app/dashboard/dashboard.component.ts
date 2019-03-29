@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  is_logged_in = false; 
+  is_logged_in = 0; 
   constructor(private router: Router) {
-    this.is_logged_in = localStorage.getItem('is_logged_in');
+    this.is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
     if(this.is_logged_in!=1){
         this.router.navigate(['login'])      
     }

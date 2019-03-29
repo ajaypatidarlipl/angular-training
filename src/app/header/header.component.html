@@ -15,7 +15,7 @@
         <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="is_logged_in">
-        <a class="nav-link" href="javascript:;" ng-click="logout()">Logout</a>
+        <a class="nav-link" href="javascript:;" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
