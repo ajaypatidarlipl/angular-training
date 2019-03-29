@@ -15,22 +15,30 @@ export class AuthService {
     return is_logged_in ? true : false;
   }
 
-  register(signupData): Observable<any> {
+  register(signupData){
     var data = {
       method: 'registration',
-      data: [{
+      data: JSON.stringify([{
         username: signupData.username,
         email: signupData.email,
         password: signupData.password
-      }]
+      }])
     };
+    console.log('register', data)
+    console.log('webservice_url', this.webservice_url)
+    return this.http.post<any>(this.webservice_url, data).subscribe(
 
-    return this.http.post<any>(this.webservice_url, data)
-      .pipe(
-        map(response => {
-          return response;
-        })
-      );
+      data  => {
+
+      console.log("PUT Request is successful ", data);
+
+      },
+
+      error  => {
+
+      console.log("Rrror", error);
+
+      });
   }
 
 }
