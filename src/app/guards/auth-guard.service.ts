@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from './../auth/auth.service';
-import { Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable()
 export class AuthGuard {
@@ -14,7 +15,7 @@ export class AuthGuard {
     }
 
     // navigate to login page
-    this._router.navigate(['/login']);
+    this._router.navigate(['login']);
     // you can save redirect url so after authing we can move them back to the page they requested
     return false;
   }

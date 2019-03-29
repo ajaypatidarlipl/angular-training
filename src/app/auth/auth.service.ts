@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  isAuthenticated() {
+  isAuthenticated(){
     var is_logged_in = parseInt(localStorage.getItem('is_logged_in'));
     return is_logged_in ? true : false;
   }
