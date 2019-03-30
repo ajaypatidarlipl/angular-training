@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +26,8 @@ export class AuthService {
     }]));
     return this.http.post<any>(this.webservice_url, data)
       .pipe(
+        retry(1),
+        catchError(this.handleError),
         map(response => {
           return response;
         })
@@ -35,11 +38,13 @@ export class AuthService {
     var data = new HttpParams();
     data = data.set('method', 'login');
     data = data.set('data', JSON.stringify([{
-      'email': loginData.email,
-      'password': loginData.password
+      email: loginData.email,
+      password: loginData.password
     }]));
     return this.http.post<any>(this.webservice_url, data)
-      .pipe(
+      .pipe(        
+        retry(1),
+        catchError(this.handleError),
         map(response => {
           if(response.status==true)
             localStorage.setItem('is_logged_in', 1);
@@ -52,5 +57,18 @@ export class AuthService {
   logout(){
     localStorage.setItem('is_logged_in', '');
     return true;
+  }
+
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }

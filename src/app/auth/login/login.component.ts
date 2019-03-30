@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MessageService } from './../../messages/message.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   isSubmitting = false;
   loginResponse;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {    
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private messageService: MessageService) {    
     if(this.authService.isAuthenticated()){
         this.router.navigate(['dashboard'])      
     }
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         data  => {
           this.isSubmitting = false;
-          alert(data.message);
+          this.messageService.add(data.message, 'danger');
           if(data.status==true){
               this.router.navigate(['dashboard']);
           }else{
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
         },
         error  => {
           this.isSubmitting = false;
-          console.log("Rrror", error);
+          console.log("Error: ", error);
         });     
     }
   }

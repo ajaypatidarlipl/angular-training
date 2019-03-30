@@ -12,11 +12,13 @@ import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth-guard.service';
+import { MessagesComponent } from './messages/messages.component';
+import { MessageService } from './messages/message.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, HttpClientModule ],
-  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent, PageNotFoundComponent ],
+  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent, PageNotFoundComponent, MessagesComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [AuthService, AuthGuard]
+  providers: [ AuthService, AuthGuard, MessageService ]
 })
 export class AppModule { }

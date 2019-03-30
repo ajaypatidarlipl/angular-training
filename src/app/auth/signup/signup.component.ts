@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PasswordValidation } from './../../password-validation';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { MessageService } from './../../messages/message.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   isSubmitting = false;
   signupResponse;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private messageService: MessageService) {
     if(this.authService.isAuthenticated()){
         this.router.navigate(['dashboard'])      
     }
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
         this.authService.register(this.signupForm.value).subscribe(
           data  => {
             this.isSubmitting = false;
-            alert(data.message);
+            this.messageService.add(data.message, 'danger');
             if(data.status==true){
               this.router.navigate(['dashboard']);
             }else{
@@ -47,7 +48,7 @@ export class SignupComponent implements OnInit {
           },
           error  => {
             this.isSubmitting = false;
-            console.log("Rrror", error);
+            console.log("Error: ", error);
           });
     }
   }
