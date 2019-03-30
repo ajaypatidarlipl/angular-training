@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
         this.authService.register(this.signupForm.value).subscribe(
           data  => {
             this.isSubmitting = false;
-            this.messageService.add(data.message, 'danger');
+            this.messageService.add(data.message, data.status?'success':'danger');
             if(data.status==true){
               this.router.navigate(['dashboard']);
             }else{

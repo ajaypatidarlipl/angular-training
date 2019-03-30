@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         data  => {
           this.isSubmitting = false;
-          this.messageService.add(data.message, 'danger');
+          this.messageService.add(data.message, data.status?'success':'danger');
           if(data.status==true){
               this.router.navigate(['dashboard']);
           }else{
