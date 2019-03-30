@@ -17,13 +17,13 @@ export class AuthService {
   }
 
   register(signupData): Observable<any>{
-    var data = new HttpParams();
-    data = data.set('method', 'registration');
-    data = data.set('data', JSON.stringify([{
-      'username': signupData.name,
-      'email': signupData.email,
-      'password': signupData.password
-    }]));
+    var data = new HttpParams()
+      .set('method', 'registration')
+      .set('data', JSON.stringify([{
+        'username': signupData.name,
+        'email': signupData.email,
+        'password': signupData.password
+      }]));
     return this.http.post<any>(this.webservice_url, data)
       .pipe(
         retry(1),
@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   login(loginData){
-    var data = new HttpParams();
-    data = data.set('method', 'login');
-    data = data.set('data', JSON.stringify([{
-      email: loginData.email,
-      password: loginData.password
-    }]));
+    var data = new HttpParams()
+      .set('method', 'login')
+      .set('data', JSON.stringify([{
+        email: loginData.email,
+        password: loginData.password
+      }]));
     return this.http.post<any>(this.webservice_url, data)
       .pipe(        
         retry(1),
