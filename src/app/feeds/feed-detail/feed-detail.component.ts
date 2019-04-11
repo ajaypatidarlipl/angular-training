@@ -11,13 +11,16 @@ export class FeedDetailComponent implements OnInit {
   slug: any
   feed =  [];
 
-  constructor(private feedsService: FeedsService, private activatedRoute: ActivatedRoute) {
+  constructor(private feedsService: FeedsService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.slug = this.activatedRoute.snapshot.url[2].path ? this.activatedRoute.snapshot.url[2].path : '';
   }
 
   ngOnInit() {   
     this.feedsService.getFeedBySlug(this.slug).subscribe(
         data  => {
+          if(data.status==false)
+            this.router.navigate(['feeds']);
+            
           this.feed = data.data;
         },
         error  => {
