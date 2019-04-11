@@ -14,11 +14,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from './guards/auth-guard.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './messages/message.service';
+import { FeedsComponent } from './feeds/feeds.component';
+import { FeedsService } from './feeds/feeds.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, HttpClientModule ],
-  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent, PageNotFoundComponent, MessagesComponent ],
+  declarations: [ AppComponent, HeaderComponent, LoginComponent, SignupComponent, DashboardComponent, PageNotFoundComponent, MessagesComponent, FeedsComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ AuthService, AuthGuard, MessageService ]
+  providers: [ AuthService, AuthGuard, MessageService, FeedsService ]
 })
 export class AppModule { }

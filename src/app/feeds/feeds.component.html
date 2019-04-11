@@ -1,0 +1,20 @@
+<h3>Feeds</h3>
+
+<div class="list-group" *ngIf="feeds.length > 0">
+  <a *ngFor="let feed of feeds"  routerLink="/feeds/detail/{{feed.slug}}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col-md-1">
+        <div class="d-flex w-100 justify-content-between">
+            <img src="{{feed.image}}" width="80px" height="80px"/>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <small class="text-muted">{{ (feed.created_datetime | date :'mediumDate') }}</small>
+        <h5 class="mb-1">{{feed.title}}</h5>
+        <p class="mb-1">
+              {{ (feed.description.length>150)? (feed.description | slice:0:150)+' ....':(feed.description) }}
+        </p>
+      </div>
+    </div>
+  </a>
+</div>
