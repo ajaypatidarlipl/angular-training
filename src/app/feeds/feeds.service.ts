@@ -24,9 +24,12 @@ export class FeedsService {
       );
   }
 
-  getFeedBySlug(): Observable<any>{
+  getFeedBySlug(slug): Observable<any>{
     var data = new HttpParams()
-      .set('method', 'getFeedBySlug');
+      .set('method', 'getFeedBySlug')
+      .set('data', JSON.stringify([{
+        slug: slug
+      }]));
     return this.http.post<any>(this.webservice_url, data)
       .pipe(
         retry(1),

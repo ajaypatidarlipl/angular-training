@@ -7,13 +7,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { FeedsComponent } from './feeds/feeds.component';
+import { FeedDetailComponent } from './feeds/feed-detail/feed-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'feeds', component: FeedsComponent, canActivate: [AuthGuard] },
-  { path: 'feeds/detail/:slug', component: FeedsComponent, canActivate: [AuthGuard] },
+  { path: 'feeds/detail/:slug', component: FeedDetailComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

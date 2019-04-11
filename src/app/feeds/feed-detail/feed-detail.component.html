@@ -1,0 +1,9 @@
+<h3><a routerLink="/feeds">Feeds</a> > {{feed.title}}</h3>
+<div class="list-group" *ngIf="feed">
+    <div class="d-flex w-100 justify-content-between">
+        <img src="{{feed.image}}" width="200px" height="200px"/>
+      <small class="text-muted">{{ feed.created_datetime | date :'mediumDate' }}</small>
+    </div>
+    <h5 class="mb-1">{{feed.title}}</h5>
+    <p class="mb-1">{{feed.description}} </p>
+</div>
