@@ -24,6 +24,19 @@ export class FeedsService {
       );
   }
 
+  getFeedBySlug(): Observable<any>{
+    var data = new HttpParams()
+      .set('method', 'getFeedBySlug');
+    return this.http.post<any>(this.webservice_url, data)
+      .pipe(
+        retry(1),
+        catchError(this.handleError),
+        map(response => {
+          return response;
+        })
+      );
+  }
+
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
